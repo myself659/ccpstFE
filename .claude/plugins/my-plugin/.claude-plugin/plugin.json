@@ -1,0 +1,7 @@
+{
+  "name": "my-plugin",
+  "displayName": "My Plugin",
+  "version": "0.1.0",
+  "description": "Local example plugin — replace with something real or delete this directory.",
+  "keywords": ["example"]
+}

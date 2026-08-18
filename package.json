@@ -1,0 +1,14 @@
+{
+  "name": "my-project",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "echo \"replace with your dev server command\"",
+    "build": "tsc -p tsconfig.json",
+    "test": "echo \"replace with your test runner\"",
+    "lint": "echo \"replace with your linter\""
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

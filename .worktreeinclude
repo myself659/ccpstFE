@@ -1,0 +1,8 @@
+# Gitignored files Claude Code copies into every new git worktree it creates
+# (via --worktree, the EnterWorktree tool, or a subagent with isolation: worktree).
+# Worktrees are fresh checkouts, so untracked files like .env are missing by
+# default. Syntax matches .gitignore; only files that are BOTH gitignored and
+# matched here get copied.
+
+.env
+.env.local
