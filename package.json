@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "deploy": "node scripts/deploy.mjs",
+    "seed-db": "node scripts/seed-db.mjs",
     "dev": "echo \"replace with your dev server command\"",
     "build": "tsc -p tsconfig.json",
     "test": "echo \"replace with your test runner\"",

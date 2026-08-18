@@ -13,6 +13,7 @@ the reference image alone — see **Corrections** below for what changed.
 
 ```
 CLAUDE.md              Project memory, loaded every session
+.gitattributes          LF normalization so Windows checkouts stay clean
 .mcp.json              Team-shared MCP servers (project root, not .claude/)
 .env.example            Copy to .env — never commit .env itself
 .worktreeinclude        Gitignored files to copy into new git worktrees
@@ -24,7 +25,8 @@ CLAUDE.md              Project memory, loaded every session
   skills/<name>/SKILL.md  Preferred mechanism going forward — same /name
                           invocation, plus you can bundle scripts/refs/assets
   agents/*.md             Subagents — own context window, own tool access
-  hooks/                  Scripts referenced from settings.json
+  hooks/                  Node scripts referenced from settings.json —
+                          cross-platform, no bash/jq needed
   workflows/              Where your saved dynamic workflows land
   plugins/my-plugin/      A plugin skeleton, for when you want to package
                           skills/agents/hooks as one distributable unit
@@ -42,6 +44,21 @@ src/, tests/, docs/, scripts/    Generic example app — swap for your stack
 6. `/init` any time you want Claude to regenerate CLAUDE.md from the
    codebase as it exists then
 
+Requires Node 18+. Nothing else — see **Platform support** below.
+
+## Platform support
+
+Runs as-is on Windows, macOS and Linux. Every hook and helper script is
+Node (`.mjs`) rather than bash, so none of the usual Windows friction
+applies: no WSL, no Git Bash, no `jq` on PATH, no `chmod +x`.
+
+Two conventions that keep it that way, worth preserving if you add your own:
+
+- Hooks are registered in `.claude/settings.json` as `node ./path/script.mjs`,
+  and read their JSON payload from stdin — not via `jq`
+- Values like `$CLAUDE_NOTIFICATION` are read from `process.env` inside the
+  script, not passed as `"$VAR"` arguments, which `cmd.exe` won't expand
+
 ## Corrections from the reference image
 
 If you've seen the "Claude Code Project Structure" cheat sheet this is
@@ -57,7 +74,7 @@ based on, a few things there don't match the current product:
   PreToolUse, PostToolUse, SessionStart, SessionEnd, Notification, and
   others — a "gate before commit" is a `PreToolUse` hook matched on the
   Bash tool that checks whether the command is a `git commit`. See
-  `.claude/hooks/block-secret-commit.sh`.
+  `.claude/hooks/block-secret-commit.mjs`.
 - **CLAUDE.md guidance is ~200 lines now, not 500.** Longer files still
   load, but adherence can drop. `.claude/rules/` (optionally scoped to
   matching files via `paths:` frontmatter) is the current answer to

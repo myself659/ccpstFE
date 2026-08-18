@@ -9,7 +9,7 @@ Work through `references/checklist.md` in this skill's directory — read it
 before writing findings, don't rely on memory of what it says.
 
 For anything programmatically checkable (unused deps, obvious lint issues),
-run `scripts/quick-scan.sh` first and fold its output into the review instead
+run `node scripts/quick-scan.mjs` first and fold its output into the review instead
 of re-deriving it by eye.
 
 Report findings grouped by severity (blocking / should-fix / nit), each with

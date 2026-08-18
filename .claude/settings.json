@@ -8,7 +8,10 @@
     ],
     "deny": [
       "Bash(rm -rf *)",
-      "Bash(git push --force*)"
+      "Bash(git push --force*)",
+      "Bash(Remove-Item * -Recurse*)",
+      "Bash(rd /s*)",
+      "Bash(del /s*)"
     ]
   },
   "hooks": {
@@ -18,7 +21,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "jq -r '.tool_input.file_path' | xargs npx prettier --write --ignore-unknown"
+            "command": "node ./.claude/hooks/format-file.mjs"
           }
         ]
       }
@@ -29,7 +32,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./.claude/hooks/block-secret-commit.sh"
+            "command": "node ./.claude/hooks/block-secret-commit.mjs"
           }
         ]
       }
@@ -39,7 +42,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'Session started. Branch:' $(git branch --show-current)"
+            "command": "node ./.claude/hooks/session-start.mjs"
           }
         ]
       }
@@ -49,7 +52,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./scripts/notify.sh \"$CLAUDE_NOTIFICATION\""
+            "command": "node ./scripts/notify.mjs"
           }
         ]
       }

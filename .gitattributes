@@ -1,0 +1,18 @@
+# Normalize line endings so the repo behaves the same on Windows and POSIX.
+# Without this, files checked out on Windows get CRLF and every diff on a
+# teammate's Mac shows the whole file as changed.
+* text=auto eol=lf
+
+# Windows-native tooling that must keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binary — never touch
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.pdf binary
+*.woff binary
+*.woff2 binary
